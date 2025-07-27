@@ -14,7 +14,7 @@
                 @auth
                     <a href="{{ route('post.create') }}" class="flex items-center">
                         <x-primary-button>
-                            Create Post
+                            <x-sui-create class="h-6 w-6" />
                         </x-primary-button>
                     </a>
                     <!-- Settings Dropdown -->
@@ -23,7 +23,12 @@
                             <x-slot name="trigger">
                                 <button
                                     class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    <div>{{ Auth::user()->username }}</div>
+                                    <div class="h-8 w-8 rounded-full overflow-hidden">
+                                        <img src="{{ $avatarUrl }}"
+                                            onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ $avatarInitials }}&length=2&background=gray&color=fff&rounded=true';"
+                                            alt="{{ Auth::user()->username }}"
+                                            class="h-full w-full object-cover rounded-full" />
+                                    </div>
 
                                     <div class="ms-1">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +53,8 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                    <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
                                                                                     this.closest('form').submit();">
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
@@ -80,10 +86,10 @@
                 <button @click="open = ! open"
                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex"
+                        <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
+                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
                             stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
@@ -93,7 +99,7 @@
 
     <!-- Responsive Navigation Menu -->
     @auth
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
 
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
@@ -115,7 +121,8 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
-                        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
+                        <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
                                                                         this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>

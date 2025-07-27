@@ -36,7 +36,7 @@ class PostController extends Controller
             $followingIds = $user->following()->pluck('users.id');
 
             if ($followingIds->isEmpty()) {
-                $cacheKey = 'random-posts-user-'.$user->id;
+                $cacheKey = 'random-posts-user-' . $user->id;
 
                 $posts = Cache::remember($cacheKey, now()->addMinutes(3), function () use ($baseQuery, $user) {
                     return (clone $baseQuery)
@@ -92,13 +92,8 @@ class PostController extends Controller
 
         $data = $request->validated();
 
-        // $image = $data['image'];
-        // unset($data['image']);
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['title']);
-
-        // $imagePath = $image->store('posts', 'public');
-        // $data['image'] = $imagePath;
 
         $post = Post::create($data);
 
@@ -222,17 +217,17 @@ class PostController extends Controller
     private function clearRandomPostCaches(): void
     {
         Cache::forget('random-posts-guest');
-        Cache::forget('random-posts-user-'.auth()->id());
+        Cache::forget('random-posts-user-' . auth()->id());
     }
 
     private function enableQueryLoggingOnce(): void
     {
-        if (! app()->runningInConsole() && ! app()->bound('query.listener')) {
+        if (!app()->runningInConsole() && !app()->bound('query.listener')) {
             DB::listen(function ($query) {
                 Log::info('SQL Query Executed', [
                     'sql' => $query->sql,
                     'bindings' => $query->bindings,
-                    'time' => $query->time.' ms',
+                    'time' => $query->time . ' ms',
                 ]);
             });
 

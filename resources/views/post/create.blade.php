@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="py-4">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
                 <form action="{{ route('post.store') }}" enctype="multipart/form-data" method="post">
                     @csrf
@@ -53,8 +53,15 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-primary-button>
-                            Submit
+                        <x-primary-button
+                            class="flex items-center gap-3 px-6 py-3 rounded-lg bg-[#488aec] text-white text-xs font-bold uppercase shadow-md transition-all duration-300 
+        hover:bg-[#3574d4] hover:shadow-lg hover:text-white
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#488aec] active:opacity-85">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" class="w-5 h-5 text-white" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4l16 8-16 8V4z" />
+                            </svg>
+                            POST
                         </x-primary-button>
                     </div>
                 </form>

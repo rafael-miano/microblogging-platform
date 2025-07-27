@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="py-4">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <h1 class="text-lg mb-4">
                 Update Post: <strong class="font-bold">{{ $post->title }}</strong>
             </h1>
@@ -10,9 +10,9 @@
                     @method('PUT')
 
                     @if ($post->imageUrl())
-                    <div class="mb-8">
-                        <img src="{{ $post->imageUrl() }}" alt="{{ $post->title }}" class="w-full">
-                    </div>
+                        <div class="mb-8">
+                            <img src="{{ $post->imageUrl() }}" alt="{{ $post->title }}" class="w-full">
+                        </div>
                     @endif
 
                     <!-- Image -->
@@ -36,8 +36,7 @@
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
                             <option value="">Select a Category</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" 
-                                        @selected(old('category_id', $post->category_id) == $category->id)>
+                                <option value="{{ $category->id }}" @selected(old('category_id', $post->category_id) == $category->id)>
                                     {{ $category->name }}
                                 </option>
                             @endforeach
@@ -47,21 +46,29 @@
                     <!-- Content -->
                     <div class="mt-4">
                         <x-input-label for="content" :value="__('Content')" />
-                        <x-text-area-input id="content" class="block mt-1 w-full" type="text" name="content" autofocus>{{ old('content', $post->content) }}</x-text-area-input>
+                        <x-text-area-input id="content" class="block mt-1 w-full" type="text" name="content"
+                            autofocus>{{ old('content', $post->content) }}</x-text-area-input>
                         <x-input-error :messages="$errors->get('content')" class="mt-2" />
                     </div>
 
                     <!-- Published_At -->
                     <div class="mt-4">
                         <x-input-label for="published_at" :value="__('Published At')" />
-                        <x-text-input id="published_at" class="block mt-1 w-full" type="datetime-local" name="published_at"
-                            :value="old('published_at', optional($post->published_at)->format('Y-m-d\TH:i'))" autofocus />
+                        <x-text-input id="published_at" class="block mt-1 w-full" type="datetime-local"
+                            name="published_at" :value="old('published_at', optional($post->published_at)->format('Y-m-d\TH:i'))" autofocus />
                         <x-input-error :messages="$errors->get('published_at')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-primary-button>
-                            Submit
+                        <x-primary-button
+                            class="flex items-center gap-3 px-6 py-3 rounded-lg bg-[#488aec] text-white text-xs font-bold uppercase shadow-md transition-all duration-300 
+        hover:bg-[#3574d4] hover:shadow-lg hover:text-white
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#488aec] active:opacity-85">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" class="w-5 h-5 text-white" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4l16 8-16 8V4z" />
+                            </svg>
+                            UPDATE POST
                         </x-primary-button>
                     </div>
                 </form>

@@ -1,10 +1,10 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" x-data="{ isLoading: false }" @submit="isLoading = true">
         @csrf
 
         <!-- Username -->
         <div>
-            <x-input-label for="username" :value="__('Userame')" />
+            <x-input-label for="username" :value="__('Username')" />
             <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')"
                 required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
@@ -45,9 +45,27 @@
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
+
         <div class="mt-4">
-            <x-primary-button class="justify-center block w-full">
-                {{ __('Register') }}
+            <x-primary-button type="submit"
+                class="justify-center block w-full px-3 py-2 rounded-md bg-[#1875FF] text-white text-sm font-medium shadow-[0px_4px_15px_-4px_#1875FF] transition-all duration-300
+                hover:bg-[#1669e8] hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1875FF] disabled:opacity-50"
+                x-bind:disabled="isLoading">
+
+                <span x-show="!isLoading" x-cloak>{{ __('Register') }}</span>
+
+                <span x-show="isLoading" x-cloak class="inline-flex items-center">
+                    <svg class="animate-spin -ml-1 mr-1 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4" />
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2
+                            5.291A7.962 7.962 0 014 12H0c0
+                            3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    {{ __('Registering...') }}
+                </span>
             </x-primary-button>
         </div>
 
@@ -55,7 +73,6 @@
             <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
-
         </div>
     </form>
 </x-guest-layout>
