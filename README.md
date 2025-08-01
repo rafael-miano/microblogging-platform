@@ -33,7 +33,7 @@ A minimalist microblogging platform built with Laravel 12. Designed for programm
 
 ## 📦 Requirements
 
-- PHP 8.1 or higher
+- PHP 8.3 or higher
 - Composer
 - Node.js (see `.nvmrc` for version)
 - npm or yarn
